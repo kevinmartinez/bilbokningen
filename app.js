@@ -3,7 +3,7 @@ var http = require('http');
 var path = require('path');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var engine = require('consolidate'); // If using HTML 
+//var engine = require('consolidate'); // If using HTML
 
 var index = require('./routes/index');
 var login = require('./routes/login');
@@ -12,14 +12,13 @@ var app = express();
 
 // If using HTML 
 
-app.set('views', __dirname + '/views');
-app.engine('html', engine.mustache);
-app.set('view engine', 'html');
+// app.set('views', __dirname + '/views');
+// app.engine('html', engine.mustache);
+// app.set('view engine', 'html');
 
-// if using pug 
-
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'pug');
+// if using pug
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
 
 
 app.use(bodyParser.json());
