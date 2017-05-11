@@ -22,6 +22,7 @@
     "express": "^4.15.2",
     "mongoose": "^4.9.8",
     "mustache": "^2.3.0",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "pug": "^2.0.0-rc.1"
   }
 }
