@@ -1,15 +1,18 @@
+// Color vars
+$white: #fffff7;
+$blacK: #344146;
+
+// Font vars
+$font-family-primary: "Baloo", Arial, Helvetica, sans-serif;
+
 body {
   background: seagreen;
   margin: 0;
   /* Temporary until normalize.css */ 
 }
 
-// Color variables
-$white: #fffff7;
-$blacK: #344146;
-
 h1, h2, h3, h4, h4, h5, h6 {
-  font-family: "Baloo", Arial, Helvetica, sans-serif;
+  font-family: $font-family-primary;
   letter-spacing: 0.8px;
 }
 
