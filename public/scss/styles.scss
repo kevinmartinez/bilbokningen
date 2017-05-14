@@ -6,7 +6,7 @@ $blacK: #344146;
 $font-family-primary: "Baloo", Arial, Helvetica, sans-serif;
 
 body {
-  background: seagreen;
+  background: #2cc990;
   margin: 0;
   /* Temporary until normalize.css */ 
 }
@@ -29,10 +29,13 @@ input {
 }
 
 main,
-.header-main {
+.header-main,
+.footer-main {
   padding: 25px; 
 }
 
-.header-main {
-  background: gold;
+.header-main,
+.footer-main {
+  background: #d6dac2;
+  text-align: center;
 }
