@@ -1,41 +1,31 @@
-doctype html
-//- Fix template partials for head and header
-html(lang="sv-SE")
-  head
-    meta(charset="utf-8")
-    //- Change to dynamic title
-    title="Bilbokningen"
-    meta(name="viewport" content="width=device-width, initial-scale=1")
-    meta(http-equiv='X-UA-Compatible', content ='IE=edge')
-    link(href="https://fonts.googleapis.com/css?family=Baloo", rel="stylesheet")
-    link(href="css/styles.css", rel="stylesheet")
-  body
-    header.header-main
-        h1.heading-main Välkommen till Bilbokningen
-    main
-        section
-            h2.heading-sub Inlogging
-            form(method="post" action="")
-                //- User login
-                fieldset.user-login
-                    legend
-                        h3 Befintlig användare
-                    //- e-mail and/or username?
-                    label(for="email") E-post
-                    input#email(type="email", name="email", placeholder="namn@namnsson.se", required)
-                    //- Password
-                    label(for="password") Lösenord
-                    input#password(type="password", name="password", required)
-                    button.login-btn Logga in
-                    //- If user forgot password
-                    a(href="#") Glömt ditt lösenord?
-                //- Maybe create user should be on a separate file? e.g href above saying: Inte skapat något konto än?... 
-                fieldset.user-create
-                    legend
-                        h3 Skapa användare
-                    label(for="email-create") Ange e-post
-                    input#email-create(type="email", name="email", placeholder="namn@namnsson.se", required)
-                    //- Password
-                    label(for="password-create") Välj lösenord
-                    input#password-create(type="password", name="password", placeholder="Minst 6 bokstäver", required)
-                    button.login-btn Färdig
+include partials/head.pug
+header.header-main
+  h1.heading-main Välkommen till Bilbokningen
+main
+  section
+    h2.heading-sub Inlogging
+  form(method="post" action="")
+    //- User login
+    fieldset.user-login
+      legend
+        h3 Befintlig användare
+      //- e-mail and/or username?
+      label(for="email") E-post
+      input#email(type="email", name="email", placeholder="namn@namnsson.se", required)
+      //- Password
+      label(for="password") Lösenord
+      input#password(type="password", name="password", required)
+      button.login-btn Logga in
+      //- If user forgot password
+      a(href="#") Glömt ditt lösenord?
+    //- Maybe create user should be on a separate file? e.g href above saying: Inte skapat något konto än?... 
+    fieldset.user-create
+      legend
+        h3 Skapa användare
+      label(for="email-create") Ange e-post
+      input#email-create(type="email", name="email", placeholder="namn@namnsson.se", required)
+      //- Password
+      label(for="password-create") Välj lösenord
+      input#password-create(type="password", name="password", placeholder="Minst 6 bokstäver", required)
+      button.login-btn Färdig
+include partials/footer.pug
