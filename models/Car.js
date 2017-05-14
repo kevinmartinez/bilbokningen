@@ -4,11 +4,14 @@ var Schema = mongoose.Schema;
 var CarSchema = new Schema({
     model: String,
     seats: Number,
-    auto: Boolean,
-    roofrack: Boolean,
+    isAuto: Boolean,
+    hasRoofrack: Boolean,
     price: Number,
-    booked: {
-        $gte: String,
-        $lt: String,
-    }
-})
+    booking: [{
+        email: String,
+        startDate: String,
+        endDate: String,
+    }]
+});
+
+module.exports = mongoose.model('Car', CarSchema);
