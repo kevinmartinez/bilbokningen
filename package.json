@@ -4,7 +4,7 @@
   "description": "Bilbokningsystem med nodejs och mongoose",
   "main": "app.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --reporter nyan"
   },
   "repository": {
     "type": "git",
