@@ -7,6 +7,7 @@ var url = 'mongodb://grupp10:123123@ds133981.mlab.com:33981/bilbokning';
 
 var index = require('./routes/index');
 var login = require('./routes/login');
+var manageCars = require('./routes/manage-cars');
 
 var app = express();
 
@@ -20,6 +21,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/login', login);
+app.use('/manage-cars', manageCars);
 var port = normalizePort(process.env.PORT || '3030');
 app.set('port', port);
 
@@ -99,7 +101,7 @@ app.post('/cars', (req, res) => { // add new car
     });
 });
 
-app.delete('/cars', (req, res) => { // delete car
+app.delete('/cars', (req, res) => { // delete car need to send id of car (this will be a function later)
     car.findByIdAndRemove({ _id: req.body.id }, (error, results) => {
         if (error) res.send(error);
         console.log('Car Removed Successfully');
@@ -107,7 +109,7 @@ app.delete('/cars', (req, res) => { // delete car
 });
 
 // update car with booking (route here will be for that page whatever page the user books a car from)
-// client need to supply id of car 
+// client need to supply id of car  (this will be a function later)
 app.post('/booking', (req, res) => {
     console.log(req.body)
     car.findByIdAndUpdate(req.body.id, { $push: { booking: { endDate: req.body.endDate, startDate: req.body.startDate, email: req.body.email } } }, { new: true }, (error, results) => { // change req.body.id to the right car id later
@@ -122,7 +124,7 @@ app.post('/booking', (req, res) => {
 //  TODO: when user clicks to unbook : 
 //  client need to send id of unbooked car 
 //  - loop through user id (email) in cars booking to find his/her booking
-// remove it from object
+// remove it from object  (this will be a function later)
 
 
 // END of Database setup and commands
