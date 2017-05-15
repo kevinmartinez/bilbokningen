@@ -101,18 +101,17 @@ app.post('/cars', (req, res) => { // add new car
     });
 });
 
-app.delete('/cars', (req, res) => { // delete car need to send id of car (this will be a function later)
-    car.findByIdAndRemove({ _id: req.body.id }, (error, results) => {
+app.delete('/cars/:id', (req, res) => { // delete car need to send id of car to url /cars/:id
+    car.findByIdAndRemove({ _id: req.params.id }, (error, results) => {
         if (error) res.send(error);
         console.log('Car Removed Successfully');
     });
 });
 
-// update car with booking (route here will be for that page whatever page the user books a car from)
-// client need to supply id of car  (this will be a function later)
-app.post('/booking', (req, res) => {
-    console.log(req.body)
-    car.findByIdAndUpdate(req.body.id, { $push: { booking: { endDate: req.body.endDate, startDate: req.body.startDate, email: req.body.email } } }, { new: true }, (error, results) => { // change req.body.id to the right car id later
+// update car with booking (can be post)
+// client need to supply id of car -> post method to url /cars/id(of car to be booked)
+app.patch('/cars/:id', (req, res) => {
+    car.findByIdAndUpdate(req.params.id, { $push: { booking: { endDate: req.body.endDate, startDate: req.body.startDate, email: req.body.email } } }, { new: true }, (error, results) => { // change req.body.id to the right car id later
         if (error) res.send(error);
         res.send(results);
         console.log('Successfully booked a car');
