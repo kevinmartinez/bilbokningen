@@ -5,18 +5,10 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var url = 'mongodb://grupp10:123123@ds133981.mlab.com:33981/bilbokning';
 
-//var engine = require('consolidate'); // If using HTML
-
 var index = require('./routes/index');
 var login = require('./routes/login');
 
 var app = express();
-
-// If using HTML 
-
-// app.set('views', __dirname + '/views');
-// app.engine('html', engine.mustache);
-// app.set('view engine', 'html');
 
 // if using pug
 app.set('views', path.join(__dirname, 'views'));
@@ -55,13 +47,13 @@ mongoose.Promise = global.Promise;
 // user settings 
 var user = require('./models/User.js');
 
-app.get('/users', (req, res) => {
+app.get('/users', (req, res) => { // get all users
     user.find({}, (error, results) => {
         res.json(results);
-    })
-})
+    });
+});
 
-app.post('/users', (req, res) => {
+app.post('/users', (req, res) => { // on sign up - check if username already exsists 
     // req.body.email;
     // req.body.password;
     user.find({ email: req.body.email }, function(error, exsist) {
@@ -75,20 +67,30 @@ app.post('/users', (req, res) => {
                 console.log('New user added to database');
             });
         }
-    })
+    });
+});
+
+app.post('/findUser', (req, res) => { // on log in - check if username and password is correct 
+    user.find({ email: req.body.email, password: req.body.password }, function(error, exsist) {
+        if (exsist.length) { // if username and password match 
+            console.log(exsist, 32);
+        } else {
+            console.log('Wrong username or password');
+        }
+    });
 });
 
 // car settings
 var car = require('./models/Car.js');
 
-app.get('/cars', (req, res) => {
+app.get('/cars', (req, res) => { // get all cars 
     car.find({}, (error, results) => {
         res.json(results);
         console.log('Fetched all cars');
     });
 });
 
-app.post('/cars', (req, res) => {
+app.post('/cars', (req, res) => { // add new car
     var newCar = new car(req.body);
     newCar.save((error, results) => {
         if (error) res.send(error);
@@ -97,7 +99,7 @@ app.post('/cars', (req, res) => {
     });
 });
 
-app.delete('/cars', (req, res) => {
+app.delete('/cars', (req, res) => { // delete car
     car.findByIdAndRemove({ _id: req.body.id }, (error, results) => {
         if (error) res.send(error);
         console.log('Car Removed Successfully');
