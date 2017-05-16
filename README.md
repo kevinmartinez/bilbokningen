@@ -17,10 +17,13 @@ Gruppexamination i Avancerad Webbapplikationsutveckling 1
 * Pull in latest changes from repo
 * Install dependencies (and dev-dependencies)
 * Compile Sass
+* Minify CSS and put in dist/
 ```sh
 $ git pull
 
 $ npm install -d
 
 $ gulp sass
+
+$ gulp minifyCSS
 ```
