@@ -21,7 +21,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/login', login);
-app.use('/manage-cars', manageCars);
+// app.use('/manage-cars', manageCars);
 var port = normalizePort(process.env.PORT || '3030');
 app.set('port', port);
 
@@ -85,19 +85,25 @@ app.post('/findUser', (req, res) => { // on log in - check if username and passw
 // car settings
 var car = require('./models/Car.js');
 
-app.get('/cars', (req, res) => { // get all cars 
+app.get('/manage-cars', (req, res) => { // get all cars 
     car.find({}, (error, results) => {
-        res.json(results);
+        // res.json(results);
+        res.render('manage-cars', {
+            title: 'cars',
+            results: results
+        })
         console.log('Fetched all cars');
     });
 });
 
-app.post('/cars', (req, res) => { // add new car
+app.post('/manage-cars', (req, res) => { // add new car
+    console.log(req.body);
     var newCar = new car(req.body);
     newCar.save((error, results) => {
-        if (error) res.send(error);
-        res.send(results);
-        console.log('New car added to database');
+        if (error) { res.send(error); } else {
+            // res.send(results);
+            console.log('New car added to database');
+        }
     });
 });
 

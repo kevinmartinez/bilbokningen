@@ -3,8 +3,31 @@ header.header-main
   h1.heading-main Välkommen till Bilbokningen
 main
   section
-//- Form för att lägga till bilar
-//-  Lista alla bilar
+//- Form för att lägga till bilar - klert
+//-  Lista alla bilar - klart
 //- Kunna ta bort bilarna 
-//- lägg till bilar med method post action = /cars
+//- lägg till bilar med method post - klart
+
+//- form för att testa db funktioner
+form(method="POST" action="")
+  label(for="model") Model
+    input(name="model", required)
+  label(for="seats") Seats
+    select(name="seats")
+      option(value="2") 2
+      option(value="4") 4
+      option(value="5") 5
+  label(for="isAuto") Auto
+    input(type="hidden" name="isAuto" value="false")
+    input(type="checkbox" onclick="this.previousSibling.value=true")
+  label(for="hasRoofrack") Roofrack
+    input(type="hidden" name="hasRoofrack" value="false")
+    input(type="checkbox" onclick="this.previousSibling.value=true")
+  label(for="price") Price/Day
+    input(name="price", required)
+    input(type="submit")
+ul Cars
+  if results
+    each result in results
+      li Model: #{result.model} Seats: #{result.seats} Auto: #{result.isAuto} Roofrack: #{result.hasRoofrack} Price/day: #{result.price}
 include partials/footer.pug
