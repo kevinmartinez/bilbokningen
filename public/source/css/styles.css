@@ -26,3 +26,7 @@ main,
 .footer-main {
   background: #d6dac2;
   text-align: center; }
+
+#availableCars tr.header, #availableCars tr:hover {
+  background-color: #f1f1f1;
+}
