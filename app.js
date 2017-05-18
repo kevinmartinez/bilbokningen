@@ -87,7 +87,6 @@ var car = require('./models/Car.js');
 
 app.get('/manage-cars', (req, res) => { // get all cars 
     car.find({}, (error, results) => {
-        // res.json(results);
         res.render('manage-cars', {
             title: 'cars',
             results: results
@@ -97,17 +96,18 @@ app.get('/manage-cars', (req, res) => { // get all cars
 });
 
 app.post('/manage-cars', (req, res) => { // add new car
-    console.log(req.body);
     var newCar = new car(req.body);
     newCar.save((error, results) => {
-        if (error) { res.send(error); } else {
-            // res.send(results);
+        if (error) {
+            res.send(error);
+        } else {
+            // res.send('success');
             console.log('New car added to database');
         }
     });
 });
 
-app.delete('/cars/:id', (req, res) => { // delete car need to send id of car to url /cars/:id
+app.delete('/manage-cars/:id', (req, res) => { // delete car 
     car.findByIdAndRemove({ _id: req.params.id }, (error, results) => {
         if (error) res.send(error);
         console.log('Car Removed Successfully');

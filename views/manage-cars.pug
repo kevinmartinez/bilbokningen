@@ -3,13 +3,7 @@ header.header-main
   h1.heading-main Välkommen till Bilbokningen
 main
   section
-//- Form för att lägga till bilar - klert
-//-  Lista alla bilar - klart
-//- Kunna ta bort bilarna 
-//- lägg till bilar med method post - klart
-
-//- form för att testa db funktioner
-form(method="POST" action="")
+form(method="POST" action="" onSubmit="refreshPage()")
   label(for="model") Model
     input(name="model", required)
   label(for="seats") Seats
@@ -30,4 +24,9 @@ ul Cars
   if results
     each result in results
       li Model: #{result.model} Seats: #{result.seats} Auto: #{result.isAuto} Roofrack: #{result.hasRoofrack} Price/day: #{result.price}
+      button(type='button' onclick="deleteCar('" + result.id + "')") Remove
+      
+
+      
 include partials/footer.pug
+script(src='/javascripts/manage.js')
