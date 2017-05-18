@@ -22,16 +22,24 @@ form(method="POST" action="" onSubmit="refreshPage()")
   label(for="price") Price/Day
     input(name="price", required)
     input(type="submit")
-h4 All cars
-ul 
-  if results
-    each result in results
-        li Model: #{result.model} Seats: #{result.seats} Auto: #{result.isAuto} Roofrack: #{result.hasRoofrack} Price/day: #{result.price} 
-        each booking in result.booking
-          li Bookings : #{booking.email} From: #{booking.startDate} To:  #{booking.endDate}
-
-        button(type='button' onclick="deleteCar('" + result.id + "')") Remove car
-      
+div.container
+  table.table.table-striped
+    thead
+      tr
+        th Model
+        th Seats
+        th Auto
+        th Roofrack
+        th Price/day
+    tbody
+    if results
+      each result in results
+        tr
+          td #{result.model} 
+          td #{result.seats}
+          td #{result.isAuto} 
+          td #{result.hasRoofrack} 
+          td #{result.price}
 include partials/footer.pug
 script(src='/javascripts/manage.js')
 
