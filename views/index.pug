@@ -4,5 +4,27 @@ header.header-main
   include partials/menu.pug
 main
   section.intro
-    h2.heading-sub  Loreens Ipsum
+    h2.heading-sub  Available cars
+  div.container
+    table.table.table-striped
+      thead
+        tr
+          th Model
+          th Seats
+          th Auto
+          th Roofrack
+          th Price/day
+      tbody
+      if results
+        each result in results
+          tr
+            td #{result.model} 
+            td #{result.seats}
+            td #{result.isAuto} 
+            td #{result.hasRoofrack} 
+            td #{result.price}
+            td 
+              button(name="book") Book
+    
 include partials/footer.pug
+

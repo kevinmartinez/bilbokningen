@@ -5,9 +5,6 @@ header.header-main
 main
   section
     h2.heading-sub Inlogging
-    //- Can we add two different forms here? login should have method=post & action= /findUser
-    //- sign up should also have method post but action /users 
-    //- thanks! :D kan göra det också men vet hur det är när någon annan pillar i ens kod, hehe
   form(method="post" action="")
     //- User login
     fieldset.user-login
@@ -22,7 +19,6 @@ main
       button.login-btn Logga in
       //- If user forgot password
       a(href="#") Glömt ditt lösenord?
-    //- Maybe create user should be on a separate file? e.g href above saying: Inte skapat något konto än?... 
   
   
   a(href="signup") Inte skapat något konto än?..

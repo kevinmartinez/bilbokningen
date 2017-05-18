@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
+// app.use('/', index);
 app.use('/login', login);
 app.use('/signup', signup);
 // app.use('/manage-cars', manageCars);
@@ -81,17 +81,39 @@ app.post('/login', (req, res) => { // on log in - check if username and password
 });
 
 // car settings
+
+app.get('/', (req, res) => {
+    console.log('we on index');
+    car.find({ booking: [] }, (error, results) => {
+        if (error) {
+            res.send(error);
+        } else {
+            res.render('index', {
+                title: 'cars',
+                results: results
+            })
+            console.log('Fetched all cars for index');
+        }
+    });
+});
+
 var car = require('./models/Car.js');
 
 app.get('/manage-cars', (req, res) => { // get all cars 
     car.find({}, (error, results) => {
-        res.render('manage-cars', {
-            title: 'cars',
-            results: results
-        })
-        console.log('Fetched all cars');
+        if (error) {
+            res.send(error);
+        } else {
+            res.render('manage-cars', {
+                title: 'cars',
+                results: results
+            })
+            console.log('Fetched all cars for manage-cars');
+        }
     });
 });
+
+// prints "The author is Bob Smith"
 
 app.post('/manage-cars', (req, res) => { // add new car
     var newCar = new car(req.body);
@@ -121,7 +143,6 @@ app.patch('/cars/:id', (req, res) => {
         console.log('Successfully booked a car');
     });
 });
-
 
 // need one for unbook 
 //  TODO: when user clicks to unbook : 
