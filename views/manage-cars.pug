@@ -1,6 +1,7 @@
 include partials/head.pug
 header.header-main
   h1.heading-main Välkommen till Bilbokningen
+  include partials/menu.pug
 main
   section
 form(method="POST" action="" onSubmit="refreshPage()")
@@ -24,9 +25,9 @@ ul Cars
   if results
     each result in results
       li Model: #{result.model} Seats: #{result.seats} Auto: #{result.isAuto} Roofrack: #{result.hasRoofrack} Price/day: #{result.price}
-      button(type='button' onclick="deleteCar('" + result.id + "')") Remove
-      
 
+      button(type='button' onclick="deleteCar('" + result.id + "')") Remove
       
 include partials/footer.pug
 script(src='/javascripts/manage.js')
+
