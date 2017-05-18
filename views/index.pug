@@ -8,7 +8,7 @@ main
   section.intro
     h2.heading-sub  Available cars
   div.container
-    table.table.table-striped
+    table.table.table-striped#availableCars
       thead
         tr
           th Model
@@ -16,7 +16,26 @@ main
           th Auto
           th Roofrack
           th Price/day
-      tbody
+          th
+        tr
+          td
+            input.form-control#inputModel(onkeyup="filterBooking()")
+          td
+            input.form-control#inputSeats(type="number",onkeyup="filterBooking()")
+          td
+            select.form-control#inputAuto(onchange="filterBooking()")
+              option(value="") Visa alla
+              option(value="true") Ja
+              option(value="false") Nej
+          td
+            select.form-control#inputRoofrack(onchange="filterBooking()")
+              option(value="") Visa alla
+              option(value="true") Ja
+              option(value="false") Nej
+          td
+            input.form-control#inputPrice(type="number",onkeyup="filterBooking()")
+          td
+      tbody#availableCarsBody
       if results
         each result in results
           tr
@@ -26,7 +45,6 @@ main
             td #{result.hasRoofrack} 
             td #{result.price}
             td 
-              button(name="book") Book
-    
+              button.btn.btn-default(name="book") Book    
 include partials/footer.pug
 
