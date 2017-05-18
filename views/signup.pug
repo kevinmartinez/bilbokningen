@@ -1,0 +1,19 @@
+include partials/head.pug
+header.header-main
+  h1.heading-main Välkommen till Bilbokningen
+  include partials/menu.pug
+main
+  section
+    h2.heading-sub Registrera dig  
+  form(method="post" action="")
+    fieldset.user-create
+      legend
+        h3 Skapa användare
+    label(for="email-create") Ange e-post
+    input#email-create(type="email", name="email", placeholder="namn@namnsson.se", required)
+    //- Password
+    label(for="password-create") Välj lösenord
+    input#password-create(type="password", name="password", placeholder="Minst 6 bokstäver", required)
+    input(type="submit")
+
+include partials/footer.pug

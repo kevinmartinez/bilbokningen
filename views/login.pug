@@ -23,13 +23,7 @@ main
       //- If user forgot password
       a(href="#") Glömt ditt lösenord?
     //- Maybe create user should be on a separate file? e.g href above saying: Inte skapat något konto än?... 
-    fieldset.user-create
-      legend
-        h3 Skapa användare
-      label(for="email-create") Ange e-post
-      input#email-create(type="email", name="email", placeholder="namn@namnsson.se", required)
-      //- Password
-      label(for="password-create") Välj lösenord
-      input#password-create(type="password", name="password", placeholder="Minst 6 bokstäver", required)
-      button.login-btn Färdig
+  
+  
+  a(href="signup") Inte skapat något konto än?..
 include partials/footer.pug

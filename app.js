@@ -7,6 +7,7 @@ var url = 'mongodb://grupp10:123123@ds133981.mlab.com:33981/bilbokning';
 
 var index = require('./routes/index');
 var login = require('./routes/login');
+var signup = require('./routes/signup');
 var manageCars = require('./routes/manage-cars');
 
 var app = express();
@@ -21,6 +22,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/login', login);
+app.use('/signup', signup);
 // app.use('/manage-cars', manageCars);
 var port = normalizePort(process.env.PORT || '3030');
 app.set('port', port);
@@ -49,33 +51,29 @@ mongoose.Promise = global.Promise;
 // user settings 
 var user = require('./models/User.js');
 
-app.get('/users', (req, res) => { // get all users
-    user.find({}, (error, results) => {
-        res.json(results);
-    });
-});
-
-app.post('/users', (req, res) => { // on sign up - check if username already exsists 
-    // req.body.email;
-    // req.body.password;
+app.post('/signup', (req, res) => { // on sign up - check if username already exsists 
     user.find({ email: req.body.email }, function(error, exsist) {
         if (exsist.length) {
             console.log('user already exsist');
         } else {
             var newUser = new user(req.body);
             newUser.save((error, results) => {
-                if (error) res.send(error);
-                res.send(results);
-                console.log('New user added to database');
+                if (error) { res.send(error); } else {
+                    console.log('New user added to database');
+                    res.redirect('/');
+                }
             });
         }
     });
 });
 
-app.post('/findUser', (req, res) => { // on log in - check if username and password is correct 
+app.post('/login', (req, res) => { // on log in - check if username and password is correct 
+    console.log(req.body, 24);
     user.find({ email: req.body.email, password: req.body.password }, function(error, exsist) {
         if (exsist.length) { // if username and password match 
             console.log(exsist, 32);
+            console.log('user exsist in database')
+            res.redirect('/');
         } else {
             console.log('Wrong username or password');
         }

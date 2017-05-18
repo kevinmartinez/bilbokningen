@@ -4,6 +4,7 @@ header.header-main
   include partials/menu.pug
 main
   section
+h3 Add Car to database
 form(method="POST" action="" onSubmit="refreshPage()")
   label(for="model") Model
     input(name="model", required)
@@ -21,12 +22,15 @@ form(method="POST" action="" onSubmit="refreshPage()")
   label(for="price") Price/Day
     input(name="price", required)
     input(type="submit")
-ul Cars
+h4 All cars
+ul 
   if results
     each result in results
-      li Model: #{result.model} Seats: #{result.seats} Auto: #{result.isAuto} Roofrack: #{result.hasRoofrack} Price/day: #{result.price}
+        li Model: #{result.model} Seats: #{result.seats} Auto: #{result.isAuto} Roofrack: #{result.hasRoofrack} Price/day: #{result.price} 
+        each booking in result.booking
+          li Bookings : #{booking.email} From: #{booking.startDate} To:  #{booking.endDate}
 
-      button(type='button' onclick="deleteCar('" + result.id + "')") Remove
+        button(type='button' onclick="deleteCar('" + result.id + "')") Remove car
       
 include partials/footer.pug
 script(src='/javascripts/manage.js')
