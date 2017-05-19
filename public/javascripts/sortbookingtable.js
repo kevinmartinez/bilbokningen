@@ -6,10 +6,10 @@ function filterBooking() {
 	var inputRoofrack = document.getElementById("inputRoofrack");
 	var inputPrice = document.getElementById("inputPrice");
 	var filterModel = inputModel.value.toUpperCase();
-	var filterSeats = inputSeats.value.toUpperCase();
+	var filterSeats = inputSeats.value;
 	var filterAuto = inputAuto.value.toUpperCase();
 	var filterRoofrack = inputRoofrack.value.toUpperCase();
-	var filterPrice = inputPrice.value.toUpperCase();
+	var filterPrice = inputPrice.value;
 	var table = document.getElementById("availableCars");
 	var tr = table.getElementsByTagName("tr");
 	for (i = 0; i < tr.length; i++) {
@@ -26,10 +26,12 @@ function filterBooking() {
 		    	tdPrice) 
 		    {
 			    if (tdModel.innerHTML.toUpperCase().indexOf(filterModel) > -1 &&
-			    	tdSeats.innerHTML.toUpperCase().indexOf(filterSeats) > -1 &&
+			    	(parseFloat(tdSeats.innerHTML) >= parseFloat(filterSeats) ||
+			    	filterSeats == "") &&
 			    	tdAuto.innerHTML.toUpperCase().indexOf(filterAuto) > -1 &&
 			    	tdRoofrack.innerHTML.toUpperCase().indexOf(filterRoofrack) > -1 &&
-			    	parseFloat(tdPrice.innerHTML) <= parseFloat(filterPrice))
+			    	(parseFloat(tdPrice.innerHTML) <= parseFloat(filterPrice) ||
+			    	filterPrice == ""))
 			    {
 				    tr[i].style.display = "";
 				} 
