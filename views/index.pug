@@ -11,11 +11,16 @@ main
     table.table.table-striped#availableCars
       thead
         tr
-          th Model
-          th Seats
-          th Auto
-          th Roofrack
-          th Price/day
+          th(onclick="sortTable(0)") Model 
+            i.fa.fa-sort(aria-hidden="true")
+          th(onclick="sortTable(1)") Seats 
+            i.fa.fa-sort(aria-hidden="true")
+          th(onclick="sortTable(2)") Auto 
+            i.fa.fa-sort(aria-hidden="true")
+          th(onclick="sortTable(3)") Roofrack 
+            i.fa.fa-sort(aria-hidden="true")
+          th(onclick="sortTable(4)") Price/day 
+            i.fa.fa-sort(aria-hidden="true")
           th
         tr
           td
