@@ -29,7 +29,7 @@ function filterBooking() {
 			    	tdSeats.innerHTML.toUpperCase().indexOf(filterSeats) > -1 &&
 			    	tdAuto.innerHTML.toUpperCase().indexOf(filterAuto) > -1 &&
 			    	tdRoofrack.innerHTML.toUpperCase().indexOf(filterRoofrack) > -1 &&
-			    	tdPrice.innerHTML.toUpperCase().indexOf(filterPrice) > -1)
+			    	parseFloat(tdPrice.innerHTML) <= parseFloat(filterPrice))
 			    {
 				    tr[i].style.display = "";
 				} 
