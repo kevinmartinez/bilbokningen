@@ -2,12 +2,15 @@ var express = require('express');
 var http = require('http');
 var path = require('path');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+var cookieParser = require('cookie-parser');
 var mongoose = require('mongoose');
 var url = 'mongodb://grupp10:123123@ds133981.mlab.com:33981/bilbokning';
 
 var index = require('./routes/index');
 var login = require('./routes/login');
 var signup = require('./routes/signup');
+var logout = require('./routes/logout');
 var manageCars = require('./routes/manage-cars');
 
 var app = express();
@@ -19,8 +22,11 @@ app.set('view engine', 'pug');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({ secret: "Your secret key" }));
+app.use(cookieParser());
 
 // app.use('/', index);
+// app.use('logout', logout);
 app.use('/login', login);
 app.use('/signup', signup);
 // app.use('/manage-cars', manageCars);
@@ -60,6 +66,8 @@ app.post('/signup', (req, res) => { // on sign up - check if username already ex
             newUser.save((error, results) => {
                 if (error) { res.send(error); } else {
                     console.log('New user added to database');
+                    req.session.user = req.body.email;
+                    console.log(req.session.user, 55);
                     res.redirect('/');
                 }
             });
@@ -73,11 +81,24 @@ app.post('/login', (req, res) => { // on log in - check if username and password
         if (exsist.length) { // if username and password match 
             console.log(exsist, 32);
             console.log('user exsist in database')
+            req.session.user = req.body.email;
+            console.log(req.session.user, 55)
             res.redirect('/');
         } else {
             console.log('Wrong username or password');
         }
     });
+});
+
+app.get('/logout', function(req, res) {
+    console.log('we here')
+    if (error) {
+        res.send(error);
+    } else {
+        // req.session.destroy();
+        // res.redirect('/');
+        res.render('logout', { title: loggedout })
+    }
 });
 
 // car settings
@@ -88,9 +109,11 @@ app.get('/', (req, res) => {
         if (error) {
             res.send(error);
         } else {
+            console.log(req.session.user)
             res.render('index', {
                 title: 'cars',
-                results: results
+                results: results,
+                id: req.session.user
             })
             console.log('Fetched all cars for index');
         }
@@ -106,7 +129,8 @@ app.get('/manage-cars', (req, res) => { // get all cars
         } else {
             res.render('manage-cars', {
                 title: 'cars',
-                results: results
+                results: results,
+                id: req.session.user
             })
             console.log('Fetched all cars for manage-cars');
         }
@@ -137,9 +161,9 @@ app.delete('/manage-cars/:id', (req, res) => { // delete car
 // update car with booking (can be post)
 // client need to supply id of car -> post method to url /cars/id(of car to be booked)
 app.patch('/cars/:id', (req, res) => {
-    car.findByIdAndUpdate(req.params.id, { $push: { booking: { endDate: req.body.endDate, startDate: req.body.startDate, email: req.body.email } } }, { new: true }, (error, results) => { // change req.body.id to the right car id later
+    car.findByIdAndUpdate(req.params.id, { $push: { booking: { endDate: req.body.endDate, startDate: req.body.startDate, email: req.body.email, name: req.body.name } } }, { new: true }, (error, results) => {
         if (error) res.send(error);
-        res.send(results);
+        // res.send(results);
         console.log('Successfully booked a car');
     });
 });

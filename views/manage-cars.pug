@@ -5,7 +5,7 @@ header.header-main
 main
   section
 h3 Add Car to database
-form(method="POST" action="" onSubmit="refreshPage()")
+form#add-car(method="POST" action="" onSubmit="refreshPage()")
   label(for="model") Model
     input(name="model", required)
   label(for="seats") Seats
@@ -23,7 +23,7 @@ form(method="POST" action="" onSubmit="refreshPage()")
     input(name="price", required)
     input(type="submit")
 div.container
-  table.table.table-striped
+  table.table.manage-cars#availableCars
     thead
       tr
         th Model
@@ -32,7 +32,7 @@ div.container
         th Roofrack
         th Price/day
         th Bookings
-    tbody
+    tbody#availableCarsBody
     if results
       each result in results
         tr

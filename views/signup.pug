@@ -10,10 +10,12 @@ main
       legend
         h3 Skapa användare
     label(for="email-create") Ange e-post
-    input#email-create(type="email", name="email", placeholder="namn@namnsson.se", required)
+      input#email-create(type="email", name="email", placeholder="namn@namnsson.se", required)
     //- Password
     label(for="password-create") Välj lösenord
-    input#password-create(type="password", name="password", placeholder="Minst 6 bokstäver", required)
-    input(type="submit")
+      input#password-create(type="password", name="password", placeholder="Minst 6 bokstäver", required)
+    label(for="name-create") Ange ditt namn
+      input#namn-create(type="text", name="name", required)
+      input(type="submit")
 
 include partials/footer.pug

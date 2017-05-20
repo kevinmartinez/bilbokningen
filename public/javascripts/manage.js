@@ -1,5 +1,8 @@
 function refreshPage() {
-    window.location.reload();
+    console.log('refreshing');
+    setTimeout(function() {
+        window.location.reload();
+    });
 }
 
 function deleteCar(car) {

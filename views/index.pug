@@ -50,6 +50,6 @@ main
             td #{result.hasRoofrack} 
             td #{result.price}
             td 
-              button.btn.btn-default(name="book") Book    
+              button.btn.btn-default(name="book"  onclick="bookCar('" + result.id + "')") Book    
 include partials/footer.pug
 

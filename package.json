@@ -19,7 +19,9 @@
   "dependencies": {
     "body-parser": "^1.17.1",
     "consolidate": "^0.14.5",
+    "cookie-parser": "^1.4.3",
     "express": "^4.15.2",
+    "express-session": "^1.15.3",
     "mongoose": "^4.9.8",
     "mustache": "^2.3.0",
     "nodemon": "^1.11.0",
