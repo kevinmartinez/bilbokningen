@@ -31,6 +31,7 @@ div.container
         th Auto
         th Roofrack
         th Price/day
+        th Bookings
     tbody
     if results
       each result in results
@@ -40,6 +41,11 @@ div.container
           td #{result.isAuto} 
           td #{result.hasRoofrack} 
           td #{result.price}
+          td 
+            each booking in result.booking 
+              li #{booking.email} From: #{booking.startDate} To: #{booking.endDate}
+          td  
+            button(type='button' onclick="deleteCar('" + result.id + "')") Remove
 include partials/footer.pug
 script(src='/javascripts/manage.js')
 
