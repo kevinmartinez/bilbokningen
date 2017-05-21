@@ -59,7 +59,7 @@ app.post('/signup', (req, res) => { // on sign up - check if username already ex
 });
 
 app.post('/login', (req, res) => { // on log in - check if username and password is correct 
-    console.log(req.body, 24);
+    // console.log(req.body, 24);
     user.find({ email: req.body.email, password: req.body.password }, function(error, exsist) {
         if (exsist.length) { // if username and password match 
             console.log(exsist, 32);
@@ -85,7 +85,7 @@ app.get('/logout', (req, res) => {
 // car settings
 
 app.get('/', (req, res) => {
-    console.log('we on index');
+    // console.log('we on index');
     car.find({ booking: [] }, (error, results) => {
         if (error) {
             res.send(error);
