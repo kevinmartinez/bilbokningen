@@ -8,7 +8,8 @@ nav.navbar.navbar-default
       a(href='signup') Sign up
     li#manager-only
       a(href='manage-cars') Manage cars
-    button#logout(type="button" onClick="logout()") Log out
+    button#logout(type="button")
+      a(href="logout") Log out
     span you are logged in as 
       span#user #{id}
     script(src='/javascripts/accounts.js')

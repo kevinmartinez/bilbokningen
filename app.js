@@ -22,11 +22,15 @@ app.set('view engine', 'pug');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({ secret: "Your secret key" }));
+app.use(session({
+    secret: "Your secret key",
+    resave: true,
+    saveUninitialized: false
+}));
 app.use(cookieParser());
 
 // app.use('/', index);
-// app.use('logout', logout);
+app.use('/logout', logout);
 app.use('/login', login);
 app.use('/signup', signup);
 // app.use('/manage-cars', manageCars);
@@ -90,15 +94,13 @@ app.post('/login', (req, res) => { // on log in - check if username and password
     });
 });
 
-app.get('/logout', function(req, res) {
-    console.log('we here')
-    if (error) {
-        res.send(error);
-    } else {
-        // req.session.destroy();
-        // res.redirect('/');
-        res.render('logout', { title: loggedout })
-    }
+// Logout user 
+
+app.get('/logout', (req, res) => {
+    req.session.destroy(function(error) {
+        if (error) res.send(error);
+        res.render('logout');
+    });
 });
 
 // car settings
@@ -160,7 +162,7 @@ app.delete('/manage-cars/:id', (req, res) => { // delete car
 
 // update car with booking (can be post)
 // client need to supply id of car -> post method to url /cars/id(of car to be booked)
-app.patch('/cars/:id', (req, res) => {
+app.patch('/:id', (req, res) => {
     car.findByIdAndUpdate(req.params.id, { $push: { booking: { endDate: req.body.endDate, startDate: req.body.startDate, email: req.body.email, name: req.body.name } } }, { new: true }, (error, results) => {
         if (error) res.send(error);
         // res.send(results);
