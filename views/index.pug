@@ -1,5 +1,6 @@
 block script
   script(src='/javascripts/sortbookingtable.js')
+  script(src='/javascripts/booking.js')
 include partials/head.pug
 header.header-main
   h1.heading-main Välkommen till Bilbokningen
@@ -50,6 +51,44 @@ main
             td #{result.hasRoofrack} 
             td #{result.price}
             td 
-              button.btn.btn-default(name="book"  onclick="bookCar('" + result.id + "')") Book    
+              button.btn.btn-default(name="book" data-toggle="modal" data-target="#bookCarModal") Book
+              div#bookCarModal.modal.fade(role="dialog")
+                div.modal-dialog
+                  div.modal-content
+                    div.modal-header
+                      button.close(type="button" data-dismiss="modal") &times;
+                      h4.modal-title Book car
+                    div.modal-body
+                      p
+                        strong Model: 
+                        | #{result.model}
+                      p 
+                        strong Seats: 
+                        | #{result.seats} 
+                      p
+                        strong Is auto: 
+                        | #{result.isAuto} 
+                      p
+                        strong Roofrack: 
+                        | #{result.hasRoofrack} 
+                      p
+                        strong Price/day: 
+                        | #{result.price}
+                      p
+                        center
+                          strong Booking
+                      p
+                        strong From:
+                        input.form-control.todaysdate(id="datefrom_" + result.id + "" type="date")
+                      p
+                        strong To:
+                        input.form-control.todaysdate(id="dateto_" + result.id + "" type="date")
+                    div.modal-footer
+                      button.btn.btn-success(type="button" onclick="bookCar('" + result.id + "')") Book 
+                      div(align="left")
+                        p
+                          strong Occupied periods:
+                          p 01.06.2017 - 16.06.2017  
+                          p 19.06.2017 - 21.06.2017  
 include partials/footer.pug
 
