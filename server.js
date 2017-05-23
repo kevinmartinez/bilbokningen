@@ -27,7 +27,7 @@ app.use(session({
 }));
 app.use(cookieParser());
 
-app.use('/logout', logout);
+// app.use('/logout', logout);
 app.use('/login', login);
 app.use('/signup', signup);
 
@@ -76,10 +76,8 @@ app.post('/login', (req, res) => { // on log in - check if username and password
 // Logout user 
 
 app.get('/logout', (req, res) => {
-    req.session.destroy(function(error) {
-        if (error) res.send(error);
-        res.render('logout');
-    });
+    req.session.user = null;
+    res.render('logout');
 });
 
 // car settings
