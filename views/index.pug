@@ -51,8 +51,8 @@ main
             td #{result.hasRoofrack} 
             td #{result.price}
             td 
-              button.btn.btn-default(name="book" data-toggle="modal" data-target="#bookCarModal") Book
-              div#bookCarModal.modal.fade(role="dialog")
+              button.btn.btn-default(name="book" data-toggle="modal" data-target="#bookCarModal_" + result.id + "") Book
+              div.modal.fade(id="bookCarModal_" + result.id + "" role="dialog")
                 div.modal-dialog
                   div.modal-content
                     div.modal-header
