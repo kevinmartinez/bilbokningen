@@ -95,17 +95,3 @@ function sortTable(n) {
     }
     filterBooking();
 }
-
-
-// Send update car to server to add filterBooking
-
-function bookCar(car) {
-
-    var xhttp = new XMLHttpRequest(car);
-    xhttp.open("PATCH", "/" + car, true);
-    xhttp.send();
-    // refreshPage(); 
-    alert('car has successfully been boked');
-}
-
-// function for unbooking a car
