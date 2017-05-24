@@ -23,7 +23,11 @@ main
             td #{result.hasRoofrack} 
             td #{result.price}
             td 
-              button.btn.btn-default(name="cancel" onclick="cancelBooking('" + result.id + "')") Cancel Booking
+              each booking in result.booking   
+                li #{booking.email} From: #{booking.startDate} To: #{booking.endDate} 
+                button.btn.btn-default(name="cancel" onclick="cancelBooking('" + booking._id + "')") Cancel Booking
+            
+              
 
 include partials/footer.pug
 script(src='/javascripts/cancel.js')

@@ -149,11 +149,7 @@ app.patch('/:id', (req, res) => {
     });
 });
 
-// Cancel booking
-//  TODO: when user clicks to cancel : 
-//  client need to send id of cancel car 
-//  - loop through user id (email) in cars booking to find his/her booking
-// remove it from object  (this will be a function later)
+// get bookings from logged in user
 
 app.get('/cancel', (req, res) => {
     // var user = req.session.user;
@@ -178,6 +174,27 @@ app.get('/cancel', (req, res) => {
         res.render('cancel', { id: req.session.user });
     }
 });
+
+app.post('/cancel', (req, res) => {
+    car.aggregate({ $match: { 'booking.email': req.body.email } },
+        function(error, results) {
+            if (error) {
+                res.send(error);
+            } else {
+                console.log(results);
+                res.render('cancel', {
+                    title: 'cars',
+                    results: results,
+                    id: req.session.user
+                })
+            }
+        }
+    );
+})
+
+// TODO: get bookings from ot logged in user 
+// remove bookings
+
 
 
 // END of Database setup and commands

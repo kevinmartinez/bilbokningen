@@ -9,7 +9,7 @@ window.onload = function() {
 
     if (window.location.href.indexOf('cancel') != -1) {
         console.log('in cancel')
-        document.getElementById('cancel').style.display = (document.getElementById('user').innerText == '') ? 'none' : 'inline-block';
+        document.getElementById('cancel').style.display = (document.getElementById('user').innerText == '') ? 'inline-block' : 'none';
     }
 
 }
