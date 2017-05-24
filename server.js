@@ -10,6 +10,7 @@ var index = require('./routes/index');
 var login = require('./routes/login');
 var signup = require('./routes/signup');
 var logout = require('./routes/logout');
+var cancel = require('./routes/cancel');
 var manageCars = require('./routes/manage-cars');
 
 var app = express();
@@ -76,7 +77,7 @@ app.post('/login', (req, res) => { // on log in - check if username and password
 // Logout user 
 
 app.get('/logout', (req, res) => {
-    req.session.user = null;
+    req.session.user = undefined;
     res.render('logout');
 });
 
@@ -137,6 +138,7 @@ app.delete('/manage-cars/:id', (req, res) => { // delete car
     });
 });
 
+
 // update car with booking (can be post)
 // client need to supply id of car -> post method to url /cars/id(of car to be booked)
 app.patch('/:id', (req, res) => {
@@ -147,11 +149,35 @@ app.patch('/:id', (req, res) => {
     });
 });
 
-// need one for unbook 
-//  TODO: when user clicks to unbook : 
-//  client need to send id of unbooked car 
+// Cancel booking
+//  TODO: when user clicks to cancel : 
+//  client need to send id of cancel car 
 //  - loop through user id (email) in cars booking to find his/her booking
 // remove it from object  (this will be a function later)
+
+app.get('/cancel', (req, res) => {
+    // var user = req.session.user;
+    console.log(req.session.user);
+    if (req.session.user !== undefined) {
+        // car.find({ booking: { email: req.session.user } }, (error, results) => {
+        car.aggregate({ $match: { 'booking.email': req.session.user } },
+            function(error, results) {
+                if (error) {
+                    res.send(error);
+                } else {
+                    console.log(results);
+                    res.render('cancel', {
+                        title: 'cars',
+                        results: results,
+                        id: req.session.user
+                    })
+                }
+            }
+        );
+    } else {
+        res.render('cancel', { id: req.session.user });
+    }
+});
 
 
 // END of Database setup and commands

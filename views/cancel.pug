@@ -1,0 +1,29 @@
+include partials/head.pug
+header.header-main
+  h1.heading-main Välkommen till Bilbokningen
+  include partials/menu.pug
+main
+  section
+    form#cancel(method="post" action="")
+        fieldset.user-login
+            legend
+                h3 Input email to find your bookings
+            label(for="email") E-post
+            input(type="email" name="email" required) 
+            input(type="submit")
+    table.table#availableCars
+      thead
+      tbody#availableCarsBody
+      if results
+        each result in results
+          tr
+            td #{result.model} 
+            td #{result.seats}
+            td #{result.isAuto} 
+            td #{result.hasRoofrack} 
+            td #{result.price}
+            td 
+              button.btn.btn-default(name="cancel" onclick="cancelBooking('" + result.id + "')") Cancel Booking
+
+include partials/footer.pug
+script(src='/javascripts/cancel.js')
