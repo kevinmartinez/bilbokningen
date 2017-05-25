@@ -85,7 +85,7 @@ app.get('/logout', (req, res) => {
 
 app.get('/', (req, res) => {
     // console.log('we on index');
-    car.find({ booking: [] }, (error, results) => {
+    car.find({}, (error, results) => {
         if (error) {
             res.send(error);
         } else {
@@ -142,7 +142,7 @@ app.delete('/manage-cars/:id', (req, res) => { // delete car
 // update car with booking (can be post)
 // client need to supply id of car -> post method to url /cars/id(of car to be booked)
 app.patch('/:id', (req, res) => {
-    car.findByIdAndUpdate(req.params.id, { $push: { booking: { endDate: req.body.endDate, startDate: req.body.startDate, email: req.body.email, name: req.body.name } } }, { new: true }, (error, results) => {
+    car.findByIdAndUpdate(req.params.id, { $push: { booking: { endDate: req.body.endDate, startDate: req.body.startDate, email: req.session.user } } }, { new: true }, (error, results) => {
         if (error) res.send(error);
         // res.send(results);
         console.log('Successfully booked a car');
@@ -181,7 +181,6 @@ app.post('/cancel', (req, res) => {
             if (error) {
                 res.send(error);
             } else {
-                console.log(results);
                 res.render('cancel', {
                     title: 'cars',
                     results: results,
@@ -192,9 +191,16 @@ app.post('/cancel', (req, res) => {
     );
 })
 
-// TODO: get bookings from ot logged in user 
-// remove bookings
 
+// remove bookings
+app.patch('/cancel/:id', (req, res) => {
+    console.log(req.params.id);
+    car.findOneAndUpdate({ 'booking._id': req.params.id }, { $pull: { 'booking': { _id: req.params.id } } }, { new: true }, (error, results) => {
+        if (error) res.send(error);
+        console.log(results);
+        console.log('Successfully canceled booked car');
+    });
+});
 
 
 // END of Database setup and commands

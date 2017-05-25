@@ -1,3 +1,8 @@
-// window.onload = function() {
-//     document.getElementById('cancel').style.display = (document.getElementById('user').innerText == '') ? 'none' : 'inline-block';
-// }
+function cancelBooking(booking, button) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("PATCH", "/cancel/" + booking, true);
+    xhttp.send();
+
+    button.previousSibling.style.display = 'none';
+    button.style.display = 'none';
+}

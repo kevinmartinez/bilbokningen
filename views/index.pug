@@ -79,16 +79,18 @@ main
                           strong Booking
                       p
                         strong From:
-                        input.form-control.todaysdate(id="datefrom_" + result.id + "" type="date")
+                        input.form-control.todaysdate(id="datefrom_" + result.id + "" ,type="date", name="startDate")
                       p
                         strong To:
-                        input.form-control.todaysdate(id="dateto_" + result.id + "" type="date")
+                        input.form-control.todaysdate(id="dateto_" + result.id + "" ,type="date" , name="endDate")
                     div.modal-footer
                       button.btn.btn-success(type="button" onclick="bookCar('" + result.id + "')") Book 
                       div(align="left")
                         p
                           strong Occupied periods:
-                          p 01.06.2017 - 16.06.2017  
-                          p 19.06.2017 - 21.06.2017  
+                          each booking in result.booking 
+                            p From: #{booking.startDate} To: #{booking.endDate}
+                           
+                        
 include partials/footer.pug
 

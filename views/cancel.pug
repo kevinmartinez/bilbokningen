@@ -25,7 +25,7 @@ main
             td 
               each booking in result.booking   
                 li #{booking.email} From: #{booking.startDate} To: #{booking.endDate} 
-                button.btn.btn-default(name="cancel" onclick="cancelBooking('" + booking._id + "')") Cancel Booking
+                button.btn.btn-default(name="cancel" onclick="cancelBooking('" + booking._id + "',this)") Cancel Booking
             
               
 
