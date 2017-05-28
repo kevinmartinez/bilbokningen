@@ -1,0 +1,31 @@
+body {
+  background: #FFFFFF;
+  margin: 0;
+  /* Temporary until normalize.css */ }
+
+h1, h2, h3, h4, h4, h5, h6 {
+  font-family: "Baloo", Arial, Helvetica, sans-serif;
+  letter-spacing: 0.8px; }
+
+h1,
+h2 {
+  text-transform: uppercase;
+  color: #344146; }
+
+label,
+input {
+  display: block;
+  margin-top: 5px; }
+
+main,
+.header-main,
+.footer-main {
+  padding: 25px; }
+
+.header-main,
+.footer-main {
+  background: #d6dac2;
+  text-align: center; }
+
+#availableCars tr.header, #availableCars tr:hover {
+  background-color: #f1f1f1; }
