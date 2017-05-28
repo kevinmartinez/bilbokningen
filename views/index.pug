@@ -7,20 +7,20 @@ header.header-main
   include partials/menu.pug
 main
   section.intro
-    h2.heading-sub  Available cars
+    h2.heading-sub Tillgängliga bilar
   div.container
     table.table#availableCars
       thead
         tr
-          th(onclick="sortTable(0)") Model 
+          th(onclick="sortTable(0)") Modell 
             i.fa.fa-sort(aria-hidden="true")
-          th(onclick="sortTableNum(1)") Seats 
+          th(onclick="sortTableNum(1)") Platser 
             i.fa.fa-sort(aria-hidden="true")
           th(onclick="sortTable(2)") Auto 
             i.fa.fa-sort(aria-hidden="true")
           th(onclick="sortTable(3)") Roofrack 
             i.fa.fa-sort(aria-hidden="true")
-          th(onclick="sortTableNum(4)") Price/day 
+          th(onclick="sortTableNum(4)") Pris/dag 
             i.fa.fa-sort(aria-hidden="true")
           th
         tr
