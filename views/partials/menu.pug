@@ -1,17 +1,18 @@
 nav.navbar.navbar-default
-  ul.nav.navbar-nav
-    li
-      a(href='/') Home
-    li.optional
-      a(href='login') Logga in
-    li.optional
-      a(href='signup') Registrera
-    li#manager-only
-      a(href='manage-cars') Hantera bilar
-    li
-      a(href='cancel') Avbeställ bil
-    button#logout(type="button")
-      a(href="logout") Log out
-    span Du är inloggad som 
-      span#user #{id}
+  div.container-fluid
+    ul.nav.navbar-nav
+      li
+        a(href='/') Home
+      li.optional
+        a(href='login') Logga in
+      li.optional
+        a(href='signup') Registrera
+      li#manager-only
+        a(href='manage-cars') Hantera bilar
+      li
+        a(href='cancel') Avbeställ bil
+      li
+        a#logout(href="logout") Log out
+        span Du är inloggad som 
+        span#user #{id}
     script(src='/javascripts/accounts.js')
