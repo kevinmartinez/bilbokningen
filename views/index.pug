@@ -31,13 +31,13 @@ main
           td
             select.form-control#inputAuto(onchange="filterBooking()")
               option(value="") Visa alla
-              option(value="true") Ja
-              option(value="false") Nej
+              option(value="Ja") Ja
+              option(value="Nej") Nej
           td
             select.form-control#inputRoofrack(onchange="filterBooking()")
               option(value="") Visa alla
-              option(value="true") Ja
-              option(value="false") Nej
+              option(value="Ja") Ja
+              option(value="Nej") Nej
           td
             input.form-control#inputPrice(placeholder="Högsta pris",type="number",onkeyup="filterBooking()")
           td
@@ -47,8 +47,14 @@ main
           tr
             td #{result.model} 
             td #{result.seats}
-            td #{result.isAuto} 
-            td #{result.hasRoofrack} 
+            if result.isAuto == true
+              td Ja
+            else
+              td Nej
+            if result.hasRoofrack == true
+              td Ja
+            else
+              td Nej
             td #{result.price}
             td 
               button.btn.btn-default(name="book" data-toggle="modal" data-target="#bookCarModal_" + result.id + "") Book
@@ -67,10 +73,16 @@ main
                         | #{result.seats} 
                       p
                         strong Is auto: 
-                        | #{result.isAuto} 
+                        if result.isAuto == true
+                          | Ja
+                        else
+                          | Nej
                       p
                         strong Roofrack: 
-                        | #{result.hasRoofrack} 
+                        if result.hasRoofrack == true
+                          | Ja
+                        else
+                          | Nej
                       p
                         strong Price/day: 
                         | #{result.price}
