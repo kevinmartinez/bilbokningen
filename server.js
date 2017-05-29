@@ -125,7 +125,6 @@ app.post('/manage-cars', (req, res) => { // add new car
         if (error) {
             res.send(error);
         } else {
-            // res.send('success');
             console.log('New car added to database');
         }
     });
@@ -138,30 +137,70 @@ app.delete('/manage-cars/:id', (req, res) => { // delete car
     });
 });
 
-
-// update car with booking (can be post)
-// client need to supply id of car -> post method to url /cars/id(of car to be booked)
-app.patch('/:id', (req, res) => {
-    car.findByIdAndUpdate(req.params.id, { $push: { booking: { endDate: req.body.endDate, startDate: req.body.startDate, email: req.session.user } } }, { new: true }, (error, results) => {
-        if (error) res.send(error);
-        // res.send(results);
-        console.log('Successfully booked a car');
+// check if date is booked 
+app.post('/bookings/:id', (req, res) => {
+    console.log('checking date');
+    car.findById(req.params.id, function(error, result) {
+        if (error) {
+            res.send(error);
+        } else {
+            var bookingsInRange = result.booking.filter(function(elem) { return checkDates(req.body.startDate, req.body.endDate, elem) });
+            if (bookingsInRange.length > 0) {
+                res.send('true');
+            } else {
+                res.send('false');
+                console.log('free dates');
+            }
+        }
     });
 });
 
-// get bookings from logged in user
 
+// Check if dates are already booked for this car
+function checkDates(startDate, endDate, booking) {
+    var sDate = new Date(startDate);
+    var eDate = new Date(endDate);
+
+    var csDate = new Date(booking.startDate);
+    var ceDate = new Date(booking.endDate);
+
+    if (sDate <= ceDate && sDate >= csDate ||
+        eDate <= ceDate && eDate >= csDate) {
+        return true;
+    }
+}
+
+// update booking of car 
+// TODO : add not signed in users to book
+
+
+app.patch('/:id', (req, res) => {
+    console.log('in booking car');
+    if (req.session.user !== undefined) {
+        car.findByIdAndUpdate(req.params.id, { $push: { booking: { endDate: req.body.endDate, startDate: req.body.startDate, email: req.session.user } } }, { new: true }, (error, results) => {
+            if (error) res.send(error);
+            console.log('Successfully booked a car');
+        });
+    } else {
+        car.findByIdAndUpdate(req.params.id, { $push: { booking: { endDate: req.body.endDate, startDate: req.body.startDate, email: req.body.email } } }, { new: true }, (error, results) => {
+            if (error) res.send(error);
+            console.log('Successfully booked a car for non signed in user');
+        });
+    }
+});
+
+// get bookings from logged in user
 app.get('/cancel', (req, res) => {
-    // var user = req.session.user;
     console.log(req.session.user);
     if (req.session.user !== undefined) {
-        // car.find({ booking: { email: req.session.user } }, (error, results) => {
-        car.aggregate({ $match: { 'booking.email': req.session.user } },
+        car.aggregate({ $match: { 'booking.email': req.session.user }, },
             function(error, results) {
                 if (error) {
                     res.send(error);
                 } else {
-                    console.log(results);
+                    console.log(results, 22);
+                    results = results.map(function(result) { return trim(req.session.user, result) });
+                    console.log(results, 45);
                     res.render('cancel', {
                         title: 'cars',
                         results: results,
@@ -175,12 +214,14 @@ app.get('/cancel', (req, res) => {
     }
 });
 
+// get bookings from not logged in user
 app.post('/cancel', (req, res) => {
     car.aggregate({ $match: { 'booking.email': req.body.email } },
         function(error, results) {
             if (error) {
                 res.send(error);
             } else {
+                results = results.map(function(result) { return trim(req.body.email, result) });
                 res.render('cancel', {
                     title: 'cars',
                     results: results,
@@ -190,6 +231,18 @@ app.post('/cancel', (req, res) => {
         }
     );
 })
+
+// remove bookings for other users when same car
+function trim(email, car) {
+    console.log(car.booking);
+    console.log(email);
+    for (i in car.booking) {
+        if (car.booking[i].email != email) {
+            car.booking.splice(i, 1);
+        }
+    }
+    return car;
+}
 
 
 // remove bookings

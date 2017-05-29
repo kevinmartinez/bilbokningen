@@ -78,6 +78,9 @@ main
                         center
                           strong Booking
                       p
+                        Strong.email-input Email: 
+                        input.email-input.form-control(type="text" name='email' id="email_" + result.id + "") 
+                      p
                         strong From:
                         input.form-control.todaysdate(id="datefrom_" + result.id + "" ,type="date", name="startDate")
                       p
@@ -89,7 +92,7 @@ main
                         p
                           strong Occupied periods:
                           each booking in result.booking 
-                            p From: #{booking.startDate} To: #{booking.endDate}
+                            p.dates From: #{booking.startDate} To: #{booking.endDate}
                            
                         
 include partials/footer.pug

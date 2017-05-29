@@ -12,4 +12,11 @@ window.onload = function() {
         document.getElementById('cancel').style.display = (document.getElementById('user').innerText == '') ? 'inline-block' : 'none';
     }
 
+    if (window.location.href.indexOf('/') != -1) {
+        var emailInput = document.getElementsByClassName('email-input');
+        for (var i = 0; i < emailInput.length; i++) {
+            emailInput[i].style.display = (document.getElementById('user').innerText == '') ? 'inline-block' : 'none';
+        }
+    }
+
 }
