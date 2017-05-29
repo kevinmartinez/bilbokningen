@@ -57,19 +57,19 @@ main
               td Nej
             td #{result.price}
             td 
-              button.btn.btn-default(name="book" data-toggle="modal" data-target="#bookCarModal_" + result.id + "") Book
+              button.btn.btn-default(name="book" data-toggle="modal" data-target="#bookCarModal_" + result.id + "") Boka
               div.modal.fade(id="bookCarModal_" + result.id + "" role="dialog")
                 div.modal-dialog
                   div.modal-content
                     div.modal-header
                       button.close(type="button" data-dismiss="modal") &times;
-                      h4.modal-title Book car
+                      h4.modal-title Boka bil
                     div.modal-body
                       p
-                        strong Model: 
+                        strong Modell: 
                         | #{result.model}
                       p 
-                        strong Seats: 
+                        strong Platser: 
                         | #{result.seats} 
                       p
                         strong Is auto: 
@@ -84,25 +84,25 @@ main
                         else
                           | Nej
                       p
-                        strong Price/day: 
+                        strong Pris/dag: 
                         | #{result.price}
                       p
                         center
-                          strong Booking
+                          strong Bokning
                       p
-                        Strong.email-input Email: 
+                        Strong.email-input E-post: 
                         input.email-input.form-control(type="text" name='email' id="email_" + result.id + "") 
                       p
-                        strong From:
+                        strong Från:
                         input.form-control.todaysdate(id="datefrom_" + result.id + "" ,type="date", name="startDate")
                       p
-                        strong To:
+                        strong Till:
                         input.form-control.todaysdate(id="dateto_" + result.id + "" ,type="date" , name="endDate")
                     div.modal-footer
-                      button.btn.btn-success(type="button" onclick="bookCar('" + result.id + "')") Book 
+                      button.btn.btn-success(type="button" onclick="bookCar('" + result.id + "')") Boka 
                       div(align="left")
                         p
-                          strong Occupied periods:
+                          strong Ockuperade perioder:
                           each booking in result.booking 
                             p.dates From: #{booking.startDate} To: #{booking.endDate}
                            
