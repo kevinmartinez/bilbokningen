@@ -60,6 +60,7 @@ app.post('/signup', (req, res) => {
 
 // log in request 
 app.post('/login', (req, res) => {
+    if (!req.body.email || !req.body.password) res.send('false');
     user.find({ email: req.body.email, password: req.body.password }, function(error, exsist) { //check if username and password is correct
         if (exsist.length) { // if username and password match 
             console.log('user exsist in database')
@@ -67,6 +68,7 @@ app.post('/login', (req, res) => {
             res.redirect('/');
         } else {
             console.log('Wrong username or password');
+            res.send('false');
         }
     });
 });
