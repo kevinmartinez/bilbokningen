@@ -2,7 +2,6 @@ var chai = require('chai');
 var expect = chai.expect;
 var mongoose = require("mongoose");
 let chaiHttp = require('chai-http');
-// var request = require('request');
 var app = require('../server.js');
 var user = require('../models/User.js');
 var car = require('../models/Car.js');
@@ -10,7 +9,7 @@ let should = chai.should();
 chai.use(chaiHttp);
 
 describe('firstpage test', function() {
-    // Simple '/' check
+    // Simple '/' index page check
     it('should return 200', function() {
         chai.request(app)
             .get('/')
@@ -21,7 +20,6 @@ describe('firstpage test', function() {
 });
 
 // bilar
-
 describe('/POST cars', function() {
     it('should POST a car', function() {
         var car = {
@@ -41,7 +39,8 @@ describe('/POST cars', function() {
                 res.body.car.should.have.property('isAuto');
                 res.body.car.should.have.property('hasRoofrack');
                 res.body.car.should.have.property('price');
-                res.body.should.have.property('message').eql('New car added to database');
+                expect(console.log.calledOnce).to.be.true;
+                expect(console.log.calledWith('New car added to database')).to.be.true;
             });
     });
 
@@ -78,20 +77,17 @@ describe('/DELETE/:id car', function() {
                 .delete('/manage-cars/' + car.id)
                 .end((err, res) => {
                     res.should.have.status(200);
-                    res.body.should.have.property('message').eql('Car Removed Successfully');
+                    expect(console.log.calledOnce).to.be.true;
+                    expect(console.log.calledWith('Car Removed Successfully')).to.be.true;
 
                 });
         });
     });
 });
 
-
-
-
 // users
 
 describe('/POST users', function() {
-    // Simple '/' check
     it('should create a new account', function() {
         var user = {
             email: 'me@email.com',
@@ -104,7 +100,8 @@ describe('/POST users', function() {
                 res.should.have.status(200);
                 res.body.user.should.have.property('email');
                 res.body.user.should.have.property('password');
-                res.body.should.have.property('message').eql('New user added to database');
+                expect(console.log.calledOnce).to.be.true;
+                expect(console.log.calledWith('New user added to database')).to.be.true;
             });
     });
 
@@ -130,7 +127,8 @@ describe('/POST users', function() {
                 res.should.have.status(200);
                 email.should.equal('me@email.com');
                 password.should.equal('lalala');
-                res.body.should.have.property('message').eql('user exsist in database');
+                expect(console.log.calledOnce).to.be.true;
+                expect(console.log.calledWith('user exsist in database')).to.be.true;
             });
     });
 
@@ -143,6 +141,20 @@ describe('/POST users', function() {
                 res.body.should.have.property('errors');
                 res.body.errors.email.should.have.property('kind').eql('required');
                 password.should.equal('lalala');
+            });
+    });
+});
+
+describe('/CANCEL car', function() {
+    it('it should POST cars that user has booked', function() {
+        chai.request(app)
+            .post('/cancel')
+            // .send({ email: 'mikaelatornlund@hotmail.se' })
+            .send({ 'booking.email': 'mikaelatornlund@hotmail.se' })
+            .end((err, res) => {
+                res.should.have.status(200);
+                expect(console.log.calledOnce).to.be.true;
+                expect(console.log.calledWith('got all bookings for user')).to.be.true;
             });
     });
 });

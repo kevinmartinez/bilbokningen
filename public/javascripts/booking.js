@@ -7,22 +7,21 @@ function validateDate(carid, callback) {
 
         if (dateto >= datefrom) {
             // Check if the date is aviable in the DB.
-
             var xhttp = new XMLHttpRequest();
-            xhttp.open("POST", "/bookings/" + carid, true);
+            xhttp.open("POST", "/bookings/" + carid, true); //send a post request to check if date is free
             xhttp.setRequestHeader("Content-type", "application/json");
             xhttp.onreadystatechange = function() {
                 if (xhttp.readyState === XMLHttpRequest.DONE) {
-                    if (xhttp.responseText == 'true') {
+                    if (xhttp.responseText == 'true') { //if date is taken for that car
                         alert('Dates already booked!');
                         callback(false);
                     }
-                    if (xhttp.responseText == 'false') {
+                    if (xhttp.responseText == 'false') { //if date is free
                         callback(true);
                     }
                 }
             }
-            xhttp.send(JSON.stringify({ 'startDate': datefrom, 'endDate': dateto }));
+            xhttp.send(JSON.stringify({ 'startDate': datefrom, 'endDate': dateto })); // send the dates picked from the user
         } else {
             alert("The day you deliver the car have to be later or the same day as you pick up the car!");
             return false;
@@ -38,10 +37,9 @@ function validateDate(carid, callback) {
 
 function bookCar(carid) {
     // TODO: Check if the date is aviable.
-    console.log('we are in bookCar');
-    validateDate(carid, function(isValidated) {
+    validateDate(carid, function(isValidated) { //callbakc function to check if date is free before booking
         if (isValidated) {
-            var startDate = document.getElementById('datefrom_' + carid).value;
+            var startDate = document.getElementById('datefrom_' + carid).value; //add dates to be sent to booking function
             var endDate = document.getElementById('dateto_' + carid).value;
             var email = document.getElementById('email_' + carid).value;
 
@@ -49,8 +47,7 @@ function bookCar(carid) {
             xhttp.open("PATCH", "/" + carid, true);
             xhttp.setRequestHeader("Content-type", "application/json");
 
-            xhttp.send(JSON.stringify({ 'startDate': startDate, 'endDate': endDate, 'email': email }));
-
+            xhttp.send(JSON.stringify({ 'startDate': startDate, 'endDate': endDate, 'email': email })); //send information about booking, email for not logged in user
             alert('car has successfully been boked');
         }
     });
